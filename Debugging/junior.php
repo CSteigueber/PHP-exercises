@@ -63,7 +63,10 @@ new_exercise(5);
 
 $arr = [];
 for ($letter = "a"; $letter <= "z"; $letter++) {
-    array_push($arr, $letter);
+    if (strlen($letter)==1){
+
+        array_push($arr, $letter);
+    }
 }
 
 print_r($arr); // Array ([0] => a, [1] => b, [2] => c, ...) a-z alfabetical array
@@ -79,41 +82,40 @@ $arr = [];
 
 function combineNames($str1 = "", $str2 = "") {
     $params = [$str1, $str2];
-    foreach($params as $param) {
+    foreach($params as &$param) {
         if ($param == "") {
             $param = randomHeroName();
         }
     }
-    echo implode($params, " - ");
+    return implode($params, " - ");
 }
 
 
-function randomGenerate($arr, $amount) {
+/*function randomGenerate($arr, $amount) {
     for ($i = $amount; $i > 0; $i--) {
         array_push($arr, randomHeroName());
     }
 
     return $amount;
-}
+}*/
 
-/*function randomHeroName()
+function randomHeroName()
 {
     $hero_firstnames = ["captain", "doctor", "iron", "Hank", "ant", "Wasp", "the", "Hawk", "Spider", "Black", "Carol"];
-    $hero_lastnames = ["America", "Strange", "man", "Pym", "girl", "hulk", "eye", "widow", "panther", "daredevil", "marvel"]
+    $hero_lastnames = ["America", "Strange", "man", "Pym", "girl", "hulk", "eye", "widow", "panther", "daredevil", "marvel"];
     $heroes = [$hero_firstnames, $hero_lastnames];
-    $randname = $heroes[rand(0,count($heroes))][rand(0, 10)];
-
-    echo $randname;
-}*/
+    $randname = $heroes[rand(0,count($heroes)-1)][rand(0, 10)];
+    return $randname;
+}
 
 echo "Here is the name: " . combineNames();
 
-new_exercise(7);
-function copyright(int $year) {
-    return "&copy; $year BeCode";
+new_exercise(7);            // concatinate strings in function and echo the functions output
+function copyright( $year) {
+    return "&copy;". $year. "BeCode";
 }
 //print the copyright
-copyright(date('Y'));
+echo copyright(date('Y'));
 
 new_exercise(8);
 function login(string $email, string $password) {
