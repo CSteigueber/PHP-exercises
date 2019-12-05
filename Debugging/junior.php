@@ -119,13 +119,13 @@ echo copyright(date('Y'));
 
 new_exercise(8);
 function login(string $email, string $password) {
-    if($email == 'john@example.be' || $password == 'pocahontas') {
+    if(($email == 'john@example.be') && ($password == 'pocahontas')) {
         return 'Welcome John Smith </br>';
     }
     else  return 'No access </br>';
 }
 //should greet the user with his full name (John Smith)
-echo login('john@example', 'pocahontas');
+echo login('john@example.be', 'pocahontas');
 //no access
 echo login('john@example', 'dfgidfgdfg');
 //no access
