@@ -104,11 +104,11 @@ function randomHeroName()
     $hero_firstnames = ["captain", "doctor", "iron", "Hank", "ant", "Wasp", "the", "Hawk", "Spider", "Black", "Carol"];
     $hero_lastnames = ["America", "Strange", "man", "Pym", "girl", "hulk", "eye", "widow", "panther", "daredevil", "marvel"];
     $heroes = [$hero_firstnames, $hero_lastnames];
-    $randname = $heroes[rand(0,count($heroes)-1)][rand(0, 10)];
+    $randname = $heroes[0][rand(0,10)]." ".$heroes[1][rand(0,10)]; //$heroes[rand(0,count($heroes)-1)][rand(0, 10)];
     return $randname;
 }
 
-echo "Here is the name: " . combineNames();
+echo "Here is the name: " . randomHeroName();
 
 new_exercise(7);            // concatinate strings in function and echo the functions output
 function copyright( $year) {
@@ -127,7 +127,7 @@ function login(string $email, string $password) {
 //should greet the user with his full name (John Smith)
 echo login('john@example.be', 'pocahontas');
 //no access
-echo login('john@example', 'dfgidfgdfg');
+echo login('john@example.be', 'dfgidfgdfg');
 //no access
 echo login('wrong@example', 'wrong');
 
