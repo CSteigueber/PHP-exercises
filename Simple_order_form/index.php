@@ -34,3 +34,9 @@ else {
 }
 $totalValue = 0;
 require 'form-view.php';
+$_SESSION["email"]=$_POST["email"];
+$_SESSION[street]=$_POST["street"];
+$_SESSION[streetnumber]=$_POST["streetnumber"];
+$_SESSION[city]=$_POST["city"];
+$_SESSION[zipcode]=$_POST["zipcode"];
+whatIsHappening();
