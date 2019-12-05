@@ -62,11 +62,9 @@ new_exercise(5);
 // Fix the code so the for loop only pushes a-z in the array
 
 $arr = [];
-for ($letter = "a"; $letter <= "z"; $letter++) {
-    if (strlen($letter)==1){
+for ($letter = 97; $letter <= 122; $letter++) {
 
-        array_push($arr, $letter);
-    }
+    array_push($arr, chr($letter));
 }
 
 print_r($arr); // Array ([0] => a, [1] => b, [2] => c, ...) a-z alfabetical array
