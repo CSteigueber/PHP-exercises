@@ -33,10 +33,42 @@ else {
     ];
 }
 $totalValue = 0;
+$error=false;
 require 'form-view.php';
-$_SESSION["email"]=$_POST["email"];
-$_SESSION[street]=$_POST["street"];
-$_SESSION[streetnumber]=$_POST["streetnumber"];
-$_SESSION[city]=$_POST["city"];
-$_SESSION[zipcode]=$_POST["zipcode"];
-whatIsHappening();
+if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
+    $emailError= "No! No! No! That's not an email adress! ";
+    $error=true;
+}
+else{
+    $_SESSION["email"]=$_POST["email"];
+}
+if (is_numeric($_POST["streetnumber"])){
+    $_SESSION[streetnumber]=$_POST["streetnumber"];
+}
+else{
+    $streetnumberError= "Your house number sucks!";
+    $error=true;
+}
+if (!empty($_POST["street"])){
+    $_SESSION[street]=$_POST["street"];
+}
+else{
+    $error=true;
+    $streetError="missing";
+}
+if (!empty($_POST["city"])){
+    $_SESSION[city]=$_POST["city"];
+}
+else{
+    $cityError="missing";
+    $error=true;
+}
+if (is_numeric($_POST["zipcode"])){
+    $_SESSION[zipcode]=$_POST["zipcode"];
+}
+else{
+    $zipcodeError= "check your zipcode!";
+    $error=true;
+} 
+//whatIsHappening();
+//$_SESSION=[];
