@@ -120,37 +120,36 @@ echo copyright(date('Y'));
 new_exercise(8);
 function login(string $email, string $password) {
     if($email == 'john@example.be' || $password == 'pocahontas') {
-        return 'Welcome John';
-        return ' Smith';
+        return 'Welcome John Smith </br>';
     }
-    return 'No access';
+    else  return 'No access </br>';
 }
-//should great the user with his full name (John Smith)
-$login = login('john@example', 'pocahontas');
+//should greet the user with his full name (John Smith)
+echo login('john@example', 'pocahontas');
 //no access
-$login = login('john@example', 'dfgidfgdfg');
+echo login('john@example', 'dfgidfgdfg');
 //no access
-$login = login('wrong@example', 'wrong');
+echo login('wrong@example', 'wrong');
 
 new_exercise(9);
 function isLinkValid(string $link) {
     $unacceptables = array('https:','.doc','.pdf', '.jpg', '.jpeg', '.gif', '.bmp', '.png');
 
     foreach ($unacceptables as $unacceptable) {
-        if (strpos($link, $unacceptable) == true) {
+        if (strpos($link, $unacceptable) !== false) {
             return 'Unacceptable Found<br />';
         }
     }
     return 'Acceptable<br />';
 }
 //invalid link
-isLinkValid('http://www.google.com/hack.pdf');
+echo isLinkValid('http://www.google.com/hack.pdf');
 //invalid link
-isLinkValid('https://google.com');
+echo isLinkValid('https://google.com');
 //VALID link
-isLinkValid('http://google.com');
+echo isLinkValid('http://google.com');
 //VALID link
-isLinkValid('http://google.com/test.txt');
+echo isLinkValid('http://google.com/test.txt');
 
 
 new_exercise(10);
@@ -160,9 +159,11 @@ new_exercise(10);
 $areTheseFruits = ['apple', 'bear', 'beef', 'banana', 'cherry', 'tomato', 'car'];
 $validFruits = ['apple', 'pear', 'banana', 'cherry', 'tomato'];
 //from here on you can change the code
-for($i=0; $i <= count($areTheseFruits); $i++) {
-    if(!in_array($areTheseFruits[$i], $validFruits)) {
-        unset($areTheseFruits[$i]);
+$varifiedFruits=[];
+for($i=0; $i < count($areTheseFruits); $i++) {
+    if(in_array($areTheseFruits[$i], $validFruits)) {
+        array_push($varifiedFruits,$areTheseFruits[$i]);
     }
 }
+$areTheseFruits=$varifiedFruits;
 var_dump($areTheseFruits);//do not change this
