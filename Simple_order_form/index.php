@@ -80,19 +80,21 @@ else{
 $choices=$_POST["products"];
 $shoppingCart=[];
 
-for ($i=0;$i<sizeof($products);$i++){
-    echo $i."</br>".$products[$i]["name"];
-    $choice=$_POST["products"."[".$i."]"];
-    if ($choice==1){
+$choice=$_POST["products"];
+for ($i=0;$i<count($products);$i++){
+    if ($choice[$i]==1){
         array_push($shoppingCart,$products[$i]["name"]);
     }
 }
 
-var_dump($shoppingCart);
+for ($i=0;$i<count($shoppingCart);$i++){
+    echo ($shoppingCart[$i]."</br>");
+
+}
 /*echo $zipcodeError;
 echo $streetnumberError;
 echo $cityError;
 echo $streetError;
 echo $emailError;*/
-//whatIsHappening();
+whatIsHappening();
 //$_SESSION=[];
