@@ -13,6 +13,12 @@ function whatIsHappening() {
     echo '<h2>$_SESSION</h2>';
     var_dump($_SESSION);
 }
+
+$zipcodeError="";
+$streetnumberError="";
+$cityError="";
+$streetError="";
+$emailError="";
 //your products with their price.
 $list=$_GET["food"];
 if ($list==1){
@@ -21,7 +27,8 @@ if ($list==1){
         ['name' => 'Club Cheese', 'price' => 3],
         ['name' => 'Club Cheese & Ham', 'price' => 4],
         ['name' => 'Club Chicken', 'price' => 4],
-        ['name' => 'Club Salmon', 'price' => 5]
+        ['name' => 'Club Salmon', 'price' => 5],
+        ['name' => 'Omlette fromage', 'price' => 6.90]
     ];
 }
 else {
@@ -36,7 +43,7 @@ $totalValue = 0;
 $error=false;
 require 'form-view.php';
 if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
-    $emailError= "No! No! No! That's not an email adress! ";
+    $emailError= "No! No! No! That's not an email adress! </br> ";
     $error=true;
 }
 else{
@@ -46,7 +53,7 @@ if (is_numeric($_POST["streetnumber"])){
     $_SESSION[streetnumber]=$_POST["streetnumber"];
 }
 else{
-    $streetnumberError= "Your house number sucks!";
+    $streetnumberError= "Your house number sucks! </br>";
     $error=true;
 }
 if (!empty($_POST["street"])){
@@ -54,21 +61,38 @@ if (!empty($_POST["street"])){
 }
 else{
     $error=true;
-    $streetError="missing";
+    $streetError="missing </br>";
 }
 if (!empty($_POST["city"])){
     $_SESSION[city]=$_POST["city"];
 }
 else{
-    $cityError="missing";
+    $cityError="missing </br>";
     $error=true;
 }
 if (is_numeric($_POST["zipcode"])){
     $_SESSION[zipcode]=$_POST["zipcode"];
 }
 else{
-    $zipcodeError= "check your zipcode!";
+    $zipcodeError= "check your zipcode! </br>";
     $error=true;
 } 
+$choices=$_POST["products"];
+$shoppingCart=[];
+
+for ($i=0;$i<sizeof($products);$i++){
+    echo $i."</br>".$products[$i]["name"];
+    $choice=$_POST["products"."[".$i."]"];
+    if ($choice==1){
+        array_push($shoppingCart,$products[$i]["name"]);
+    }
+}
+
+var_dump($shoppingCart);
+/*echo $zipcodeError;
+echo $streetnumberError;
+echo $cityError;
+echo $streetError;
+echo $emailError;*/
 //whatIsHappening();
 //$_SESSION=[];
