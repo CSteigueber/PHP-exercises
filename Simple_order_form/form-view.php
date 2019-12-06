@@ -1,3 +1,6 @@
+<?php 
+    setcookie("MoneySpend");
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,10 +18,10 @@
     <nav>
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link active" href="?food=1">Order food</a>
+                <a class="nav-link active" href="?drinks=0">Order food</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="?food=0">Order drinks</a>
+                <a class="nav-link" href="?drinks=1">Order drinks</a>
             </li>
         </ul>
     </nav>
@@ -94,7 +97,7 @@
         <button type="submit" class="btn btn-primary">Order!</button>
     </form>
 
-    <footer>You already ordered <strong>&euro; <?php echo $totalValue ?></strong> in food and drinks.</footer>
+    <footer>You already ordered <strong>&euro; <?php echo $_COOKIE["MoneySpend"] ?></strong> in food and drinks.</footer>
 </div>
 
 <style>

@@ -20,8 +20,7 @@ $cityError="";
 $streetError="";
 $emailError="";
 //your products with their price.
-$list=$_GET["food"];
-if ($list==1){
+if ($_GET["drinks"]==0){
     $products = [
         ['name' => 'Club Ham', 'price' => 3.20],
         ['name' => 'Club Cheese', 'price' => 3],
@@ -33,15 +32,15 @@ if ($list==1){
 }
 else {
     $products = [
-    ['name' => 'Cola', 'price' => 2],
-    ['name' => 'Fanta', 'price' => 2],
-    ['name' => 'Sprite', 'price' => 2],
-    ['name' => 'Ice-tea', 'price' => 3],
+        ['name' => 'Cola', 'price' => 2],
+        ['name' => 'Fanta', 'price' => 2],
+        ['name' => 'Sprite', 'price' => 2],
+        ['name' => 'Ice-tea', 'price' => 3],
     ];
 }
+require 'form-view.php';
 $totalValue = 0;
 $error=false;
-require 'form-view.php';
 if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
     $emailError= "No! No! No! That's not an email adress! </br> ";
     $error=true;
@@ -76,25 +75,33 @@ if (is_numeric($_POST["zipcode"])){
 else{
     $zipcodeError= "check your zipcode! </br>";
     $error=true;
-} 
+}
+
+echo "it's now ".date("H")."-".date("i").".";
+echo  "Estimated time of delivery is ".(date("H")+2).":".date("i");
+
 $choices=$_POST["products"];
 $shoppingCart=[];
+
 
 $choice=$_POST["products"];
 for ($i=0;$i<count($products);$i++){
     if ($choice[$i]==1){
-        array_push($shoppingCart,$products[$i]["name"]);
+        array_push($shoppingCart,$products[$i]);
     }
 }
-
+$price=0;
 for ($i=0;$i<count($shoppingCart);$i++){
-    echo ($shoppingCart[$i]."</br>");
-
+    echo ($shoppingCart[$i]["name"]."</br>");
+    $price+=$shoppingCart[$i]["price"];
 }
+echo "</br>".$price;
+var_dump($_COOKIE);
+$_COOKIE["MoneySpend"]+=$price;
+var_dump($_COOKIE);
 /*echo $zipcodeError;
 echo $streetnumberError;
 echo $cityError;
 echo $streetError;
 echo $emailError;*/
-//whatIsHappening();
 //$_SESSION=[];
