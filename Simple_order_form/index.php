@@ -96,5 +96,5 @@ echo $streetnumberError;
 echo $cityError;
 echo $streetError;
 echo $emailError;*/
-whatIsHappening();
+//whatIsHappening();
 //$_SESSION=[];
