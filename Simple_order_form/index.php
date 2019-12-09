@@ -14,15 +14,25 @@ function whatIsHappening() {
     var_dump($_SESSION);
 }
 
-$zipcodeError="";
-$streetnumberError="";
-$cityError="";
-$streetError="";
-$emailError="";
-
-$totalValue = 0;
-$error=false;
-    //------------------------------------------form validation---------------------------------
+function updateSession(){
+    if (!empty($_POST["email"])){
+        $_SESSION["email"]=$_POST["email"];
+    }
+    if (!empty($_POST["streetnumber"])){
+        $_SESSION["streetnumber"]=$_POST["streetnumber"];
+    }
+    if (!empty($_POST["street"])){
+        $_SESSION["street"]=$_POST["street"];
+    }
+    if (!empty($_POST["city"])){
+        $_SESSION["city"]=$_POST["city"];
+    }
+    if (!empty($_POST["zipcode"])){
+        $_SESSION["zipcode"]=$_POST["zipcode"];
+    }
+}
+function validate(){
+    global $error, $emailError, $streetError, $streetnumberError, $zipcodeError, $cityError;
     if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
         $emailError=  "<p class='alert alert-danger'>No! No! No! That's not an email adress!<p> ";
         $error=true;
@@ -43,13 +53,17 @@ $error=false;
         $zipcodeError= "<p class='alert alert-danger'>check your zipcode! <p>";
         $error=true;
     }
-    
-    $_SESSION["email"]=$_POST["email"];
-    $_SESSION["streetnumber"]=$_POST["streetnumber"];
-    $_SESSION["street"]=$_POST["street"];
-    $_SESSION["city"]=$_POST["city"];
-    $_SESSION["zipcode"]=$_POST["zipcode"];
-    //-------------------------------------------end form validation-----------------
+}
+
+$zipcodeError="";
+$streetnumberError="";
+$cityError="";
+$streetError="";
+$emailError="";
+
+$totalValue = 0;
+$error=false;
+
     //-------------------------------------------------------your products with their price.
 if ($_GET["drinks"]==0){
     $products = [
@@ -70,6 +84,7 @@ else {
     ];
 }
 //----------------------------------------------------------end of product choice---------------
+
 //------------------------------------------------ETA-------------------------------
 
 //-----------------------------------------------Find product choice-----------------
@@ -89,5 +104,14 @@ for ($i=0;$i<count($shoppingCart);$i++){
     $price+=$shoppingCart[$i]["price"];
 }
 
-//$_SESSION=[];
+//------------------------------------ set session
+updateSession();
+
+//-----------------------------call form-view.php---------------------------------
+
 require 'form-view.php';
+validate();
+//------------------------------------------form validation---------------------------------
+updateSession();
+//-------------------------------------------end form validation-----------------
+//$_SESSION=[];

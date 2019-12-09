@@ -1,7 +1,6 @@
 <?php 
-    setcookie("MoneySpend");
-    $_COOKIE["MoneySpend"]+=$price;
-    setcookie("MoneySpend");
+    setcookie("MoneySpend",$_COOKIE["MoneySpend"]+$price);
+
 
 ?>
 <!doctype html>
