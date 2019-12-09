@@ -1,5 +1,8 @@
 <?php 
     setcookie("MoneySpend");
+    $_COOKIE["MoneySpend"]+=$price;
+    setcookie("MoneySpend");
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -96,6 +99,11 @@
 
         <button type="submit" class="btn btn-primary">Order!</button>
     </form>
+
+    <p><?php 
+        echo "It's now ".date("H")."-".date("i").".";
+        echo  " Estimated time of delivery is ".(date("H")+2).":".date("i");    
+    ?> </p>
 
     <footer>You already ordered <strong>&euro; <?php echo $_COOKIE["MoneySpend"] ?></strong> in food and drinks.</footer>
 </div>

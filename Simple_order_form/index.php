@@ -19,7 +19,38 @@ $streetnumberError="";
 $cityError="";
 $streetError="";
 $emailError="";
-//-------------------------------------------------------your products with their price.
+
+$totalValue = 0;
+$error=false;
+    //------------------------------------------form validation---------------------------------
+    if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
+        $emailError=  "<p class='alert alert-danger'>No! No! No! That's not an email adress!<p> ";
+        $error=true;
+    }
+    if (!is_numeric($_POST["streetnumber"])){
+        $streetnumberError= "<p class='alert alert-danger'>Your house number is not a house number!<p>";
+        $error=true;
+    }
+    if (empty($_POST["street"])){
+        $error=true;
+        $streetError="<p class='alert alert-danger'>missing <p>";        
+    }
+    if (empty($_POST["city"])){
+        $cityError="<p class='alert alert-danger'>missing <p>";
+        $error=true;
+    }
+    if (!is_numeric($_POST["zipcode"])){
+        $zipcodeError= "<p class='alert alert-danger'>check your zipcode! <p>";
+        $error=true;
+    }
+    
+    $_SESSION["email"]=$_POST["email"];
+    $_SESSION["streetnumber"]=$_POST["streetnumber"];
+    $_SESSION["street"]=$_POST["street"];
+    $_SESSION["city"]=$_POST["city"];
+    $_SESSION["zipcode"]=$_POST["zipcode"];
+    //-------------------------------------------end form validation-----------------
+    //-------------------------------------------------------your products with their price.
 if ($_GET["drinks"]==0){
     $products = [
         ['name' => 'Club Ham', 'price' => 3.20],
@@ -38,48 +69,9 @@ else {
         ['name' => 'Ice-tea', 'price' => 3],
     ];
 }
-require 'form-view.php';
-$totalValue = 0;
-$error=false;
-//------------------------------------------form validation---------------------------------
-if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
-    $emailError=  "<p class='alert alert-danger'>No! No! No! That's not an email adress!<p> ";
-    $error=true;
-}
-else{
-    $_SESSION["email"]=$_POST["email"];
-}
-if (is_numeric($_POST["streetnumber"])){
-    $_SESSION[streetnumber]=$_POST["streetnumber"];
-}
-else{
-    $streetnumberError= "<p class='alert alert-danger'>Your house number sucks!<p>";
-    $error=true;
-}
-if (!empty($_POST["street"])){
-    $_SESSION[street]=$_POST["street"];
-}
-else{
-    $error=true;
-    $streetError="<p class='alert alert-danger'>missing <p>";
-}
-if (!empty($_POST["city"])){
-    $_SESSION[city]=$_POST["city"];
-}
-else{
-    $cityError="<p class='alert alert-danger'>missing <p>";
-    $error=true;
-}
-if (is_numeric($_POST["zipcode"])){
-    $_SESSION[zipcode]=$_POST["zipcode"];
-}
-else{
-    $zipcodeError= "<p class='alert alert-danger'>check your zipcode! <p>";
-    $error=true;
-}
+//----------------------------------------------------------end of product choice---------------
 //------------------------------------------------ETA-------------------------------
-echo "it's now ".date("H")."-".date("i").".";
-echo  "Estimated time of delivery is ".(date("H")+2).":".date("i");
+
 //-----------------------------------------------Find product choice-----------------
 $choices=$_POST["products"];
 $shoppingCart=[];
@@ -93,13 +85,9 @@ for ($i=0;$i<count($products);$i++){
 }
 $price=0;
 for ($i=0;$i<count($shoppingCart);$i++){
-    echo ($shoppingCart[$i]["name"]."</br>");
+   // echo ($shoppingCart[$i]["name"]."</br>");
     $price+=$shoppingCart[$i]["price"];
 }
-echo "</br>".$price;
-/*echo $zipcodeError;
-echo $streetnumberError;
-echo $cityError;
-echo $streetError;
-echo $emailError;*/
+
 //$_SESSION=[];
+require 'form-view.php';
