@@ -59,7 +59,7 @@ function validate(){
 function sendemail($email){
     $msg="Dear Customer, \nyour order will be brought to you as soon as possible";
     $subject="Your order at BeCode";
-    email($email,$subject,$msg);
+    mail($email,$subject,$msg);
     var_dump($email);
     email(ownerEmail, $subject,"new order");
 }
