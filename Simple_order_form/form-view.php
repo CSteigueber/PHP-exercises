@@ -1,5 +1,6 @@
 <?php 
-    setcookie("MoneySpend",$_COOKIE["MoneySpend"]+$price);
+    setcookie("MoneySpend",$_COOKIE["MoneySpend"]+$price,time()+3600);
+//setcookie("MoneySpend",0);
 
 
 ?>
@@ -100,7 +101,7 @@
     </form>
 
     <p><?php 
-        echo "It's now ".date("H")."-".date("i").".";
+        echo "It's now ".date("H").":".date("i").".";
         echo  " Estimated time of delivery is ".(date("H")+2).":".date("i");    
     ?> </p>
 

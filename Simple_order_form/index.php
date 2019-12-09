@@ -3,6 +3,7 @@
 declare(strict_types=1);
 //---------------------we are going to use session variables so we need to enable sessions
 session_start();
+define ("ownerEmail", "c.steigueber@gmx.de");
 function whatIsHappening() {
     echo '<h2>$_GET</h2>';
     var_dump($_GET);
@@ -32,7 +33,7 @@ function updateSession(){
     }
 }
 function validate(){
-    global $error, $emailError, $streetError, $streetnumberError, $zipcodeError, $cityError;
+    global $error;global $emailError;global $streetError;global $streetnumberError;global $zipcodeError;global $cityError;
     if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
         $emailError=  "<p class='alert alert-danger'>No! No! No! That's not an email adress!<p> ";
         $error=true;
@@ -55,6 +56,13 @@ function validate(){
     }
 }
 
+function sendemail($email){
+    $msg="Dear Customer, \nyour order will be brought to you as soon as possible";
+    $subject="Your order at BeCode";
+    email($email,$subject,$msg);
+    var_dump($email);
+    email(ownerEmail, $subject,"new order");
+}
 $zipcodeError="";
 $streetnumberError="";
 $cityError="";
@@ -72,7 +80,8 @@ if ($_GET["drinks"]==0){
         ['name' => 'Club Cheese & Ham', 'price' => 4],
         ['name' => 'Club Chicken', 'price' => 4],
         ['name' => 'Club Salmon', 'price' => 5],
-        ['name' => 'Omlette fromage', 'price' => 6.90]
+        ['name' => 'Omlette fromage', 'price' => 6.90],
+        ['name' => 'express delivery', 'price'=> 2.00]
     ];
 }
 else {
@@ -81,11 +90,10 @@ else {
         ['name' => 'Fanta', 'price' => 2],
         ['name' => 'Sprite', 'price' => 2],
         ['name' => 'Ice-tea', 'price' => 3],
+        ['name' => 'express delivery', 'price'=> 2.00]
     ];
 }
 //----------------------------------------------------------end of product choice---------------
-
-//------------------------------------------------ETA-------------------------------
 
 //-----------------------------------------------Find product choice-----------------
 $choices=$_POST["products"];
@@ -100,18 +108,18 @@ for ($i=0;$i<count($products);$i++){
 }
 $price=0;
 for ($i=0;$i<count($shoppingCart);$i++){
-   // echo ($shoppingCart[$i]["name"]."</br>");
     $price+=$shoppingCart[$i]["price"];
 }
 
-//------------------------------------ set session
 updateSession();
-
-//-----------------------------call form-view.php---------------------------------
-
+if (!empty($_POST)){
+    validate();
+}
 require 'form-view.php';
 validate();
-//------------------------------------------form validation---------------------------------
 updateSession();
-//-------------------------------------------end form validation-----------------
+if (!$error){
+    sendemail($_POST["email"]);
+    echo "Howdie, partner!";
+}
 //$_SESSION=[];
