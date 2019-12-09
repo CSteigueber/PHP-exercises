@@ -10,6 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css"
           rel="stylesheet"/>
+    <link rel="stylesheet" href="style.css">
     <title>Order food & drinks</title>
 </head>
 <body>
@@ -47,7 +48,7 @@
                     <label for="street">Street:</label>
                     <input type="text" name="street" id="street" value="<?php echo $_SESSION["street"]?>"class="form-control">
                     <?php
-                if (!empty($streetlError)){
+                if (!empty($streetError)){
                     echo $streetError;
                 } 
                 ?>                
@@ -68,7 +69,7 @@
                     <input type="text" id="city" name="city" value="<?php echo $_SESSION["city"]?>"class="form-control">
                     <?php
                 if (!empty($cityError)){
-                    echo "<p>". $cityError."</p>";
+                    echo $cityError;
                 } 
                 ?>
                 </div>
@@ -76,10 +77,9 @@
                     <label for="zipcode">Zipcode</label>
                     <input type="text" id="zipcode" name="zipcode" value="<?php echo $_SESSION["zipcode"]?>"class="form-control">
                     <?php
-                if (!empty($_POST["zipcode"])){
-                    echo "check your zipcode";
+                if (!empty($zipcodeError)){
+                    echo $zipcodeError;
                 } 
-               // var_dump($zipcodeError);
                 ?>
                 </div>
             </div>

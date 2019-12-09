@@ -1,7 +1,7 @@
 <?php
-//this line makes PHP behave in a more strict way
+//---------------------------------------this line makes PHP behave in a more strict way
 declare(strict_types=1);
-//we are going to use session variables so we need to enable sessions
+//---------------------we are going to use session variables so we need to enable sessions
 session_start();
 function whatIsHappening() {
     echo '<h2>$_GET</h2>';
@@ -19,7 +19,7 @@ $streetnumberError="";
 $cityError="";
 $streetError="";
 $emailError="";
-//your products with their price.
+//-------------------------------------------------------your products with their price.
 if ($_GET["drinks"]==0){
     $products = [
         ['name' => 'Club Ham', 'price' => 3.20],
@@ -41,8 +41,9 @@ else {
 require 'form-view.php';
 $totalValue = 0;
 $error=false;
+//------------------------------------------form validation---------------------------------
 if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
-    $emailError= "No! No! No! That's not an email adress! </br> ";
+    $emailError=  "<p class='alert alert-danger'>No! No! No! That's not an email adress!<p> ";
     $error=true;
 }
 else{
@@ -52,7 +53,7 @@ if (is_numeric($_POST["streetnumber"])){
     $_SESSION[streetnumber]=$_POST["streetnumber"];
 }
 else{
-    $streetnumberError= "Your house number sucks! </br>";
+    $streetnumberError= "<p class='alert alert-danger'>Your house number sucks!<p>";
     $error=true;
 }
 if (!empty($_POST["street"])){
@@ -60,26 +61,26 @@ if (!empty($_POST["street"])){
 }
 else{
     $error=true;
-    $streetError="missing </br>";
+    $streetError="<p class='alert alert-danger'>missing <p>";
 }
 if (!empty($_POST["city"])){
     $_SESSION[city]=$_POST["city"];
 }
 else{
-    $cityError="missing </br>";
+    $cityError="<p class='alert alert-danger'>missing <p>";
     $error=true;
 }
 if (is_numeric($_POST["zipcode"])){
     $_SESSION[zipcode]=$_POST["zipcode"];
 }
 else{
-    $zipcodeError= "check your zipcode! </br>";
+    $zipcodeError= "<p class='alert alert-danger'>check your zipcode! <p>";
     $error=true;
 }
-
+//------------------------------------------------ETA-------------------------------
 echo "it's now ".date("H")."-".date("i").".";
 echo  "Estimated time of delivery is ".(date("H")+2).":".date("i");
-
+//-----------------------------------------------Find product choice-----------------
 $choices=$_POST["products"];
 $shoppingCart=[];
 
@@ -96,9 +97,6 @@ for ($i=0;$i<count($shoppingCart);$i++){
     $price+=$shoppingCart[$i]["price"];
 }
 echo "</br>".$price;
-var_dump($_COOKIE);
-$_COOKIE["MoneySpend"]+=$price;
-var_dump($_COOKIE);
 /*echo $zipcodeError;
 echo $streetnumberError;
 echo $cityError;
