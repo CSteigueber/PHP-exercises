@@ -3,7 +3,7 @@
 declare(strict_types=1);
 //---------------------we are going to use session variables so we need to enable sessions
 session_start();
-define ("ownerEmail", "c.steigueber@gmx.de");
+define ("ownerEmail", "c.steigueber@gmail.com");
 function whatIsHappening() {
     echo '<h2>$_GET</h2>';
     var_dump($_GET);
@@ -56,12 +56,15 @@ function validate(){
     }
 }
 
-function sendemail($email){
-    $msg="Dear Customer, \nyour order will be brought to you as soon as possible";
+function sendemail($email, $orders,$price){
+    for ($i=0; $i<count($orders);$i++){
+        $order+=$order[$i]['name'].", ";
+    }
+    $msg="Dear Customer, \nYou ordered ".$order;
+    $msg+="Your billing is just ".$price." EUR";
+    $msg+=" your order will be brought to you as soon as possible";
     $subject="Your order at BeCode";
-    mail($email,$subject,$msg);
-    var_dump($email);
-    email(ownerEmail, $subject,"new order");
+    mail($email.", ".ownerEmail,$subject,$msg);
 }
 $zipcodeError="";
 $streetnumberError="";
@@ -119,7 +122,9 @@ require 'form-view.php';
 validate();
 updateSession();
 if (!$error){
-    sendemail($_POST["email"]);
-    echo "Howdie, partner!";
+    for ($i=0; $i<10; $i++ ){
+        echo "Howdie, partner!</br>";
+    }
+    sendemail($_POST["email"],$shoppingCart,$price);
 }
 //$_SESSION=[];
