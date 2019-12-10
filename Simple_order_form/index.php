@@ -3,7 +3,7 @@
 declare(strict_types=1);
 //---------------------we are going to use session variables so we need to enable sessions
 session_start();
-define ("ownerEmail", "c.steigueber@gmail.com");
+define ("ownerEmail", "stijn.peeters.it@gmail.com");
 function whatIsHappening() {
     echo '<h2>$_GET</h2>';
     var_dump($_GET);
@@ -56,15 +56,17 @@ function validate(){
     }
 }
 
-function sendemail($email, $orders,$price){
+function sendemail($email, $orders,$price,$eta){
+    $order="";
     for ($i=0; $i<count($orders);$i++){
-        $order+=$order[$i]['name'].", ";
+        $order=$order.$orders[$i]['name'].", ";
     }
     $msg="Dear Customer, \nYou ordered ".$order;
-    $msg+="Your billing is just ".$price." EUR";
-    $msg+=" your order will be brought to you as soon as possible";
+    $msg=$msg."Your billing is just ".number_format($price,2)." EUR";
+    $msg=$msg."\n".$eta;
     $subject="Your order at BeCode";
-    mail($email.", ".ownerEmail,$subject,$msg);
+    mail($email,$subject,$msg);
+    mail (ownerEmail,$subject,$msg);
 }
 $zipcodeError="";
 $streetnumberError="";
@@ -122,9 +124,29 @@ require 'form-view.php';
 validate();
 updateSession();
 if (!$error){
-    for ($i=0; $i<10; $i++ ){
-        echo "Howdie, partner!</br>";
+    $h=date("H");
+    $min=date("i");
+    $arr=[12,3,14];
+    $i=count($shoppingCart)-1;
+    if ($shoppingCart[$i]['name']=="express delivery"){
+        echo "express delivery</br>";
+        $min+=45;
+        if ($min>=60){
+            $min%=60;
+            $h+=1;
+            if ($h>=24){
+                $h%=24;
+            }
+        }
+    } 
+    else{
+        $h+=2;
+        if ($h>=24){
+            $h%=24;
+        }
     }
-    sendemail($_POST["email"],$shoppingCart,$price);
+    $eta="Estimates time of delivery is ".$h.":".sprintf("%02d",$min).".";
+   sendemail($_POST["email"],$shoppingCart,$price,$eta);
+   echo "It's done!";
 }
 //$_SESSION=[];
