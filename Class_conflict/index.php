@@ -1,31 +1,42 @@
 <?php
 function battle ($player1,$player2){
+    $totalSpeed=$player1->speed+$player2->speed;
+    
     do {
+        $dice=rand(1,$totalSpeed);
+        if (($player1->speed>=$dice)&& ($player1->health>0)){ 
+            $player1->attack($player2);
+        }
+        else{
+            if ($player2->health>0){
+                $player2->attack($player1);
+            }
+        }
+        echo "</br></br>";
+    }
+    while ($player1->health>0 && $player2->health>0);
     if ($player1->health>0){
-        $player1->attack($player2);
+        $winner=$player1->name;
     }
-    if ($player2->health>0){
-        $player2->attack($player1);
+    else{
+        $winner=$player2->name;
     }
-    echo "</br></br>";
-}
-while ($player1->health>0 && $player2->health>0);
+    echo "</br></br>Victory for ".$winner."!!!</br></br>";
 }
 
 echo "Game on!</br>";
 require 'Characters.php';   
-$claas= new human("Claas");
+$claas= new human("Claas",10,9);
 $enemy01=new human("dude",6);
 $claas->set_atr("strength",10);
 battle($claas,$enemy01);
 echo "</br></br>";
-$enemy02=new human("Stijn");
+$enemy02=new human("Stijn",10,4);
 battle($claas,$enemy02);
 echo "</br></br>";
 echo "</br></br>Claas is taking a rest to recover. ";
 $claas->increase_atr("health",50);
-$enemy03= new human ("Jasper");
-$enemy03->set_atr("strength", 8);
+$enemy03= new human ("Jasper",8,7);
 battle($enemy03,$claas);
 echo "</br></br>";
 

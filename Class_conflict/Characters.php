@@ -21,13 +21,15 @@ class humanoid{
         }
     }
 
-    public function __construct ($name="random humanoid",$age=0){
+    public function __construct ($name="random humanoid",$strength=5,$speed=5,$age=0){
         $this->age=$age;
         $this->name=$name;
+        $this->strength=$strength;
+        $this->speed=$speed;
     }
     public function set_atr($atr,$value){
         $this ->$atr=$value;
-        echo $atr." from ".$this->name."is now ".$value;
+        echo "</br>".$atr." from ".$this->name."is now ".$value."</br>";
     }
     public function increase_atr($atr,$value){
         $this->$atr+=$value;
