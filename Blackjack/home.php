@@ -20,5 +20,9 @@
     </form>
     <div>Your score is <?php echo $_SESSION["player"]->score; ?></div>
     <?php }?>
+    <div>You have &euro;<?php echo $_SESSION["money"]; 
+    if ($_SESSION["money"]<=0){
+         echo " Get the f*ck outa here!";
+    } ?></div>
 </body>
 </html>
