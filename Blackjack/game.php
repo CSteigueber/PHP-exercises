@@ -9,33 +9,35 @@ function whatIsHappening() {
     echo '<h2>$_SESSION</h2>';
     var_dump($_SESSION);
 }
+function validate($name1,$name2){
+    switch (true){
+        case ($_SESSION[$name1]->lost==true): echo "whoo!";
+    }
+}
+require 'blackjack.php';
 session_start();
 require 'home.php';
 if ($_GET["action"]=="New game"){
     $_SESSION["game"]=true;
-    require 'blackjack.php';
     $_SESSION["player"]=new Blackjack("player");
     $_SESSION["dealer"]=new Blackjack("dealer");
     ob_clean();
     require 'home.php';
+
 }
-if ($_SESSION["player"]->turn==true){
-    echo "check";
-}
-var_dump($_SESSION["player"]);
-//whatIsHappening();
-if ($_SESSION["game"]==true && $_SESSION["player"]->turn==true){
-    if ($_GET["action"]=="Hit"){
-        $_SESSION["player"]->hit();
+if ( $_SESSION["player"]->turn==true){
+    switch ($_GET["action"]){
+        case "Hit":         $_SESSION["player"]->hit();         break;
+        case "Stand":       $_SESSION["player"]->stand();       break;
+        case "Surrender":   $_SESSION["player"]->surrender();   break;
     }
-    if ($_GET["action"]=="Stand"){
-        $_SESSION["player"]->stand();
-
-    }    
-    if ($_GET["action"]=="Surrender"){
-
-        $_SESSION["player"]->surrender();
-    }
-
 }
-//$_SESSION["game"]=false;
+if ($_SESSION["player"]->turn==false){
+    while (($_SESSION["dealer"]->turn==true)&& $_SESSION["dealer"]->score<=15){
+        $_SESSION["dealer"]->hit();
+    }
+}
+if (($_SESSION["player"]->turn==false)&&$_SESSION["dealer"]->turn==false){
+    $_SESSION["game"]=false;
+    validate("player","dealer");
+}
