@@ -26,6 +26,6 @@ class Blackjack{
     public function surrender(){
         $this->lost=true;
         $this->turn=false;
-        echo "You surrendered</br>You're a pussy!</br>";
+        echo "You surrendered</br>You're such a pussy!</br>";
     }
 }
