@@ -18,6 +18,7 @@
     <input type="submit" name="action" value="Surrender"/>
 
     </form>
+    <div>Your score is <?php $_SESSION["player"] ?></div>
     <?php }?>
 </body>
 </html>

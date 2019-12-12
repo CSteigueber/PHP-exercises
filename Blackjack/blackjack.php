@@ -10,18 +10,22 @@ class Blackjack{
     public function hit(){
         $card=rand(1,11);
         $this->score+=$card;
-        $output= "The card is ".$rand."</br>".$this->name."'s score is ".$this->score."</br>";
+        $output= "The card is ".$card."</br>".$this->name."'s score is ".$this->score."</br>";
         if ($this->score>21){
             $this->lost=true;
+            $this->turn=false;
             $output=$output.$this->name." lost!";
+
         }
-        return $output;
+        echo $output;
     }
     public function stand(){
         $this->turn=false;
+        echo $this->name." chooses to stand.</br>";
     }
     public function surrender(){
         $this->lost=true;
-        return "You surrendered</br>Pussy!</br>";
+        $this->turn=false;
+        echo "You surrendered</br>Pussy!</br>";
     }
 }
