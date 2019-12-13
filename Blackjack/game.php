@@ -11,12 +11,13 @@ function whatIsHappening() {
 }
 function validate($name1,$name2){
     $dScore=$_SESSION[$name1]->score - $_SESSION[$name2]->score;
+    echo "Validation:</br>";
     switch (true){
         case ($_SESSION[$name1]->lost==true): 
             echo $_SESSION[$name1]->name." lost";
             $_SESSION["money"]-=5; 
         break; 
-        case ($_SESSION[$name1]->lost==false && $_SESSION[$name2->lost==true]): 
+        case (/*$_SESSION[$name1]->lost==false &&*/ $_SESSION[$name2]->lost==true): 
             echo $_SESSION[$name1]->name." won";
             $_SESSION["money"]+=5;
         break; 
@@ -34,7 +35,7 @@ function validate($name1,$name2){
 }
 require 'blackjack.php';
 session_start();
-//$_SESSION["money"]=10;
+//$_SESSION["money"]=1000;
 if (!isset($_SESSION["money"])){
     $_SESSION["money"]=30;
 }
@@ -68,7 +69,8 @@ if ($_SESSION["player"]->turn==false && $_SESSION["game"]==true){
         $_SESSION["dealer"]->stand();
     }
 }
-if (($_SESSION["player"]->turn==false)&&$_SESSION["dealer"]->turn==false){
+if (($_SESSION["player"]->turn==false)&&$_SESSION["dealer"]->turn==false && $_SESSION["game"]==true){
     $_SESSION["game"]=false;
+
     validate("player","dealer");
 }
