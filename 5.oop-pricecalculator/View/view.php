@@ -22,6 +22,7 @@
     <input type="submit" name="submit" value="Submit">
     </select>
 </form>
+<div><?php echo $output; ?></div>
 </body>
 </html>
 
