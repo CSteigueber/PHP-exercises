@@ -11,12 +11,11 @@
 <select name="customer" size="10" multiple>
 
     <?php 
-    require ('../Model/model.php');
-    foreach ($customers as $customer => $name) {?>
+    foreach ($customers as $name) {?>
         <option value="<?php echo $name-> name ?>"><?php echo $name-> name ?></option>
     <?php } ?>
-    <select name="customer" size="10" multiple>
-<select name="customer" size="10" multiple>
+</select>
+<select name="product" size="10" multiple>
 <?php foreach ($products as $product) { ?>
     <option value="<?php echo $product-> name ?>"><?php echo $product-> name ?></option>
     <?php } ?>
