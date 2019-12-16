@@ -25,26 +25,21 @@ function getDiscount($group, $groups,$discount){
     return $discount;
 
 }
-
-
-$json=file_get_contents("../customers.json");
-$customers=json_decode($json);
-$products=json_decode(file_get_contents("../products.json"));
-$groups=json_decode(file_get_contents("../groups.json"));
-require ('../View/view.php');
+session_start();
+//---------------------------------get posted customer and product
+require('getJason.php');
 require ('../Controller/controller.php');
-require ('Discount.php');
 $customer=findShitByProperty($customer,$customers,"name");
+require ('Discount.php');//-------------------------load class Discount()
 $product=findShitByProperty($product,$products,"name");
 $price=$product ->price;
 $discount=new Discount();
 $group=findShitByProperty($customer->group_id,$groups,"id");
 $discount=getDiscount($group,$groups,$discount);
-//var_dump($customer);
-//var_dump($discount);
 $price-=$discount->fixed;
-$price-=($price*$discount->variable);
+$price-=($price*$discount->variable/100);
 if ($price<0){
     $price=0;
 }
-$output=$customer->name." has to pay ".$price." EUR for ".$product->name;
+$_SESSION["output"]=$customer->name." has to pay ".round($price,2)." EUR for ".$product->name;
+require ('../View/view.php');

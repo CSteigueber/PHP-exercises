@@ -7,10 +7,12 @@
     <title>View</title>
 </head>
 <body>
-<form method="POST">
+<form method="POST" action="../Model/model.php">
 <select name="customer" size="10" multiple>
 
     <?php 
+
+    require '../Model/getJason.php';
     foreach ($customers as $name) {?>
         <option value="<?php echo $name-> name ?>"><?php echo $name-> name ?></option>
     <?php } ?>
@@ -22,7 +24,7 @@
     <input type="submit" name="submit" value="Submit">
     </select>
 </form>
-<div><?php echo $output; ?></div>
+<div><?php echo $_SESSION["output"]; ?></div>
 </body>
 </html>
 
