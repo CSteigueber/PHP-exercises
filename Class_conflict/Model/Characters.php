@@ -12,14 +12,15 @@ class humanoid{
     public $armor=0;
 
     public function validate($target){
-        echo "validation:</br>";
-        echo $target->name. " health: ".$target->health."</br>";
+        $output= "validation:</br>";
+        $output=$output. $target->name. " health: ".$target->health."</br>";
         if ($target->health<=0){
-            echo $target->name." died.</br>";
+            $output=$output. $target->name." died.</br>";
         }
         if ($target->health<=-100){
-            echo "What an overkill!";
+            $output=$output. "What an overkill!";
         }
+    return $output;
     }
 
     public function __construct ($name="random humanoid",$strength=5,$speed=5,$age=0){
@@ -30,12 +31,14 @@ class humanoid{
     }
     public function set_atr($atr,$value){
         $this ->$atr=$value;
-        echo "</br>".$atr." from ".$this->name."is now ".$value."</br>";
+        $output= "</br>".$atr." from ".$this->name."is now ".$value."</br>";
+        return $output;
     }
     public function increase_atr($atr,$value){
         $this->$atr+=$value;
-        echo $this->name." ".$atr." increased by ".$value;
-        echo "</br>".$atr." is now ".$this->$atr;
+        $output= $this->name." ".$atr." increased by ".$value;
+        $output=$output. "</br>".$atr." is now ".$this->$atr;
+        return $output;
     }
     public function attack($target){
         $damage=($this->strength * rand(1,100)/100)-$target->armor;
@@ -43,9 +46,10 @@ class humanoid{
             $damage=0;
         }
         $target->health-=$damage;
-        echo "BAAM! ".$this->name." attacked ".$target->name."</br>";
-        echo $damage." damage caused. </br>";
+        $output= "BAAM! ".$this->name." attacked ".$target->name."</br>";
+        $output=$output. $damage." damage caused. </br>";
         $this->validate($target);
+        return $output;
     }
 }
 class human extends humanoid{

@@ -7,6 +7,8 @@
     <title>Class conflict</title>
 </head>
 <body>
-    
+<form>
+    <input type="submit" name="action" value="New game">
+    </form>
 </body>
 </html>

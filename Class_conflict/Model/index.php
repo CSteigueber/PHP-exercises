@@ -21,11 +21,13 @@ function battle ($player1,$player2){
     else{
         $winner=$player2->name;
     }
-    echo "</br></br>Victory for ".$winner."!!!</br></br>";
+    $output= "</br></br>Victory for ".$winner."!!!</br></br>";
 }
-
-echo "Game on!</br>";
 require 'Characters.php';   
+session_start();
+require ('../View/home.php');
+require ('../Controller/controller.php');
+/*echo "Game on!</br>";
 $player= new human("Claas",10,9);
 $enemy01=new human("dude",6);
 $player->set_atr("strength",10);
@@ -48,4 +50,4 @@ if ($player->health>0){
 
 
 
-echo "</br>Game over!";
+echo "</br>Game over!";*/
