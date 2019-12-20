@@ -9,6 +9,7 @@ class humanoid{
     public $intellegence;
     public $age;
     public $strength=5;
+    public $armor=0;
 
     public function validate($target){
         echo "validation:</br>";
@@ -37,7 +38,10 @@ class humanoid{
         echo "</br>".$atr." is now ".$this->$atr;
     }
     public function attack($target){
-        $damage=$this->strength * rand(1,100)/100;
+        $damage=($this->strength * rand(1,100)/100)-$target->armor;
+        if ($damage<0){
+            $damage=0;
+        }
         $target->health-=$damage;
         echo "BAAM! ".$this->name." attacked ".$target->name."</br>";
         echo $damage." damage caused. </br>";

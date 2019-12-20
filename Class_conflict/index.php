@@ -26,19 +26,25 @@ function battle ($player1,$player2){
 
 echo "Game on!</br>";
 require 'Characters.php';   
-$claas= new human("Claas",10,9);
+$player= new human("Claas",10,9);
 $enemy01=new human("dude",6);
-$claas->set_atr("strength",10);
-battle($claas,$enemy01);
+$player->set_atr("strength",10);
+battle($player,$enemy01);
 echo "</br></br>";
-$enemy02=new human("Stijn",10,4);
-battle($claas,$enemy02);
-echo "</br></br>";
-echo "</br></br>Claas is taking a rest to recover. ";
-$claas->increase_atr("health",50);
-$enemy03= new human ("Jasper",8,7);
-battle($enemy03,$claas);
-echo "</br></br>";
+if ($player->health>0){
+    $enemy02=new human("Stijn",10,4);
+    $player->increase_atr("armor",2);
+    battle($player,$enemy02);
+    echo "</br></br>";
+    echo "</br></br>Claas is taking a rest to recover. ";
+    if ($player->health>0){
+        $player->increase_atr("health",50);
+        $enemy03= new human ("Jasper",8,7);
+        battle($enemy03,$player);
+        echo "</br></br>";
+    }
+
+}
 
 
 
