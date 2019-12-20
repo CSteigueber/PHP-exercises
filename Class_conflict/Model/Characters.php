@@ -12,33 +12,32 @@ class humanoid{
     public $armor=0;
 
     public function validate($target){
-        $output= "validation:</br>";
-        $output=$output. $target->name. " health: ".$target->health."</br>";
+        $_SESSION["output"]= "validation:</br>";
+        $_SESSION["output"]=$_SESSION["output"]. $target->name. " health: ".$target->health."</br>";
         if ($target->health<=0){
-            $output=$output. $target->name." died.</br>";
+            $_SESSION["output"]=$_SESSION["output"]. $target->name." died.</br>";
         }
         if ($target->health<=-100){
-            $output=$output. "What an overkill!";
+            $_SESSION["output"]=$_SESSION["output"]. "What an overkill!";
         }
-    return $output;
+    return $_SESSION["output"];
     }
 
-    public function __construct ($name="random humanoid",$strength=5,$speed=5,$age=0){
+    public function __construct ($name="random humanoid",$strength=5,$speed=5,$armor=0){
         $this->age=$age;
         $this->name=$name;
         $this->strength=$strength;
         $this->speed=$speed;
+        $this->armor=$armor;
     }
     public function set_atr($atr,$value){
         $this ->$atr=$value;
-        $output= "</br>".$atr." from ".$this->name."is now ".$value."</br>";
-        return $output;
+        $_SESSION["output"]= "</br>".$atr." from ".$this->name."is now ".$value."</br>";
     }
     public function increase_atr($atr,$value){
         $this->$atr+=$value;
-        $output= $this->name." ".$atr." increased by ".$value;
-        $output=$output. "</br>".$atr." is now ".$this->$atr;
-        return $output;
+        $_SESSION["output"]= $this->name." ".$atr." increased by ".$value;
+        $_SESSION["output"]=$_SESSION["output"]. "</br>".$atr." is now ".$this->$atr;
     }
     public function attack($target){
         $damage=($this->strength * rand(1,100)/100)-$target->armor;
@@ -46,10 +45,9 @@ class humanoid{
             $damage=0;
         }
         $target->health-=$damage;
-        $output= "BAAM! ".$this->name." attacked ".$target->name."</br>";
-        $output=$output. $damage." damage caused. </br>";
+        $_SESSION["output"]= "BAAM! ".$this->name." attacked ".$target->name."</br>";
+        $_SESSION["output"]=$_SESSION["output"]. $damage." damage caused. </br>";
         $this->validate($target);
-        return $output;
     }
 }
 class human extends humanoid{

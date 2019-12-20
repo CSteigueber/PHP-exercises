@@ -21,15 +21,22 @@ function battle ($player1,$player2){
     else{
         $winner=$player2->name;
     }
-    $output= "</br></br>Victory for ".$winner."!!!</br></br>";
+    $_SESSION["output"]= "</br></br>Victory for ".$winner."!!!</br></br>";
 }
 require 'Characters.php';   
 session_start();
 require ('../View/home.php');
 require ('../Controller/controller.php');
+if ($_SESSION["action"]=="New game"){
+    $_SESSION["game_on"]=true;
+    echo "Game on - Stand your ground!";
+    $_SESSION["player"]= new human("Claas",10,9);
+    $_SESSION["enemy"]=new human("Enemy",rand(5,10),rand(1,10),rand(0,3));
+}
+if ($_SESSION["action"]=="Attack"){
+    $_SESSION["player"]->attack($_SESSION["enemy"]);
+}
 /*echo "Game on!</br>";
-$player= new human("Claas",10,9);
-$enemy01=new human("dude",6);
 $player->set_atr("strength",10);
 battle($player,$enemy01);
 echo "</br></br>";

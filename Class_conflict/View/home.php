@@ -9,6 +9,38 @@
 <body>
 <form>
     <input type="submit" name="action" value="New game">
-    </form>
+<?php if($_SESSION["game_on"]==true){ ?>
+    <input type="submit" name="action" value="Attack">
+    <input type="submit" name="action" value="Stand">
+    <input type="submit" name="action" value="Heal">
+    <input type="submit" name="action" value="Auto fight">
+    
+<?php } ?>
+</form>
+<div><?php echo $_SESSION["outpout"] ?></div>
+<table>
+    <tr>
+        <td>Name</td>
+        <td>Health</td>
+        <td>Strength</td>
+        <td>Speed</td>
+        <td>Armor</td>
+    </tr>
+    <tr>
+        <td><?php echo $_SESSION["player"]->name ?></td>
+        <td><?php echo $_SESSION["player"]->health ?></td>
+        <td><?php echo $_SESSION["player"]->strength ?></td>
+        <td><?php echo $_SESSION["player"]->speed ?></td>
+        <td><?php echo $_SESSION["player"]->armor ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $_SESSION["enemy"]->name ?></td>
+        <td><?php echo $_SESSION["enemy"]->health ?></td>
+        <td><?php echo $_SESSION["enemy"]->strength ?></td>
+        <td><?php echo $_SESSION["enemy"]->speed ?></td>
+        <td><?php echo $_SESSION["enemy"]->armor ?></td>
+    </tr>
+
+</table>
 </body>
 </html>
