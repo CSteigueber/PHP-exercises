@@ -17,7 +17,7 @@
     
 <?php } ?>
 </form>
-<div><?php echo $_SESSION["outpout"] ?></div>
+<div><?php echo $_SESSION["output"]; ?></div>
 <table>
     <tr>
         <td>Name</td>

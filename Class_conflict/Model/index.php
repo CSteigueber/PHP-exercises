@@ -35,6 +35,7 @@ if ($_SESSION["action"]=="New game"){
 }
 if ($_SESSION["action"]=="Attack"){
     $_SESSION["player"]->attack($_SESSION["enemy"]);
+    var_dump($_SESSION);
 }
 /*echo "Game on!</br>";
 $player->set_atr("strength",10);
